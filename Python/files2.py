@@ -6,26 +6,27 @@
  then compute the total of the spam confidence values from these lines. When you
  reach the end of the file, print out the average spam confidence.
 '''
-
+import os
+dir=os.path.dirname(__file__)
 fint=input("Enter the filename:")
+file_path=os.path.join(dir,fint)
 
 try:
-    fname=open(fint)
+    with open(file_path) as f:
+        count = 0
+        total = 0.0
+        for line in f:
+            if line.startswith("X-DSPAM-Confidence:"):
+        
+                pos = line.find(":")
+                value = float(line[pos+1:].strip())
+                total += value
+                count += 1
+
 except:
     print("File does not exist")
     exit()
 
-
-count = 0
-total = 0.0
-
-for line in fname:
-    if line.startswith("X-DSPAM-Confidence:"):
-        
-        pos = line.find(":")
-        value = float(line[pos+1:].strip())
-        total += value
-        count += 1
 
 
 avg = total / count
