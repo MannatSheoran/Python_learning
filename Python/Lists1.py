@@ -4,21 +4,31 @@
  already in the list of unique words. If the word is not in the list of unique words, add it to the list. When the program completes, sort and print the list of unique
 whwords in alphabetical order.'''
 
+import os
+
+base_dir = os.path.dirname(__file__)
+
+fname = input("Enter the file name: ")
+
+file_path = os.path.join(base_dir, fname)
 
 
-fname=input("Enter the name of file: ")
+
 try:
-    fint=open(fname)
+    with open(file_path, "r") as f:
+        fint = f.read()
+
 except:
     print("file does not exist")
     exit()
 
+
+word=fint.split()
 unique=[]
-for i in fint:
-    word=i.split()
-    for j in word:
-        if j not in unique:
-            unique.append(j)
+
+for j in word:
+    if j not in unique:
+        unique.append(j)
 
 unique.sort()
 print(unique)
